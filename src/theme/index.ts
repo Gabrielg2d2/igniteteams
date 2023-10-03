@@ -1,4 +1,4 @@
-export const themeLight = {
+export default {
   COLORS: {
     WHITE: "#FFFFFF",
 
@@ -26,4 +26,4 @@ export const themeLight = {
     LG: 18,
     XL: 24,
   },
-};
+} as const;
