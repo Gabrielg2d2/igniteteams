@@ -19,7 +19,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         {!fontsLoaded ? <Loading /> : <Groups />}
-        <StatusBar style="auto" />
+        <StatusBar style="light" translucent />
       </ThemeProvider>
     </>
   );
