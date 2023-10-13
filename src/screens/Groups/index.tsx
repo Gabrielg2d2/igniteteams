@@ -33,8 +33,10 @@ export function Groups() {
             onPress={() => console.log(`clicou: ${item}`)}
           />
         )}
+        contentContainerStyle={
+          !groups.length ? { flex: 1 } : { paddingBottom: 40 }
+        }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 70 }}
       />
     </S.Container>
   );
