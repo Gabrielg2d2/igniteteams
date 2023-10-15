@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { Button } from "@components/Button";
