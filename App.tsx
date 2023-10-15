@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { NewGroup } from "./src/screens/NewGroup";
+import { Players } from "./src/screens/Players";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
 import {
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {!fontsLoaded ? <Loading /> : <NewGroup />}
+        {!fontsLoaded ? <Loading /> : <Players />}
         <StatusBar style="light" translucent />
       </ThemeProvider>
     </>
