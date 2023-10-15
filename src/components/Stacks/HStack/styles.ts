@@ -4,7 +4,7 @@ export type ContainerStylesProps = {
   space?: number;
   bgColor?: string;
   borderRadius?: number;
-  direction?: "row" | "column";
+  padding?: string;
 };
 
 export const Container = styled.View<ContainerStylesProps>`
@@ -12,6 +12,7 @@ export const Container = styled.View<ContainerStylesProps>`
   flex-direction: row;
   align-items: center;
 
+  padding: ${({ padding }) => padding ?? "0px"};
   background-color: ${({ bgColor }) => bgColor ?? "transparent"};
   gap: ${({ space }) => (space ? space * 2 : 0)}px;
   border-radius: ${({ borderRadius }) => borderRadius ?? 0}px;
