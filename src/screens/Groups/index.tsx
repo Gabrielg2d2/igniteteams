@@ -6,17 +6,18 @@ import { FlatList } from "react-native";
 
 import * as S from "./styles";
 import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([
-    // "Galera do teams",
-    // "Galera do trampo",
-    // "Galera da faculdade",
-    // "Galera do nova",
-    // "Galera do prédio",
-    // "Galera do role",
-    // "Galera do churras",
-    // "Galera do futebol",
+    "Galera do teams",
+    "Galera do trampo",
+    "Galera da faculdade",
+    "Galera do nova",
+    "Galera do prédio",
+    "Galera do role",
+    "Galera do churras",
+    "Galera do futebol",
   ]);
 
   return (
@@ -44,6 +45,11 @@ export function Groups() {
           />
         }
         showsVerticalScrollIndicator={false}
+      />
+
+      <Button
+        title="Criar nova turma"
+        onPress={() => console.log("Criar turma")}
       />
     </S.Container>
   );
