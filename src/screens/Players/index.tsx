@@ -6,13 +6,18 @@ import { Input } from "@components/Input";
 import { Space } from "@components/Space";
 import { Filter } from "@components/Filter";
 
-import * as S from "./styles";
 import { FlatList } from "react-native";
 import { useState } from "react";
+import { HStack } from "@components/HStack";
+import { VStack } from "@components/VStack";
+import { useTheme } from "styled-components/native";
+
+import * as S from "./styles";
 
 export type PlayersProps = {};
 
 export function Players(props: PlayersProps) {
+  const { COLORS } = useTheme();
   const [players, setPlayers] = useState([]);
   const [team, setTeam] = useState("Time A");
 
@@ -20,39 +25,37 @@ export function Players(props: PlayersProps) {
     <S.Container>
       <Header showBackButton onPressBackButton={() => console.log("Voltar")} />
 
+      <Space space={24} />
+
       <Highlight
         title="Nome da turma"
         subtitle="Adicione a galera e separe os times"
       />
 
-      <Space height={20} />
+      <VStack space={12}>
+        <HStack borderRadius={6} bgColor={COLORS.GRAY_700}>
+          <Input placeholder="Nome da pessoa" autoCorrect={false} />
+          <ButtonIcon icon="add" />
+        </HStack>
 
-      <S.Form>
-        <Input placeholder="Nome da pessoa" autoCorrect={false} />
-        <ButtonIcon icon="add" />
-      </S.Form>
+        <HStack space={2}>
+          <FlatList
+            data={["time a", "time b"]}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <Filter
+                title={item}
+                isActive={item.toLowerCase() === team.toLowerCase()}
+                onPress={() => setTeam(item)}
+              />
+            )}
+            horizontal
+          />
+          <S.NumberOfPlayers>{players.length}</S.NumberOfPlayers>
+        </HStack>
 
-      <Space height={20} />
-
-      <S.HeaderList>
-        <FlatList
-          data={["time a", "time b"]}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <Filter
-              title={item}
-              isActive={item.toLowerCase() === team.toLowerCase()}
-              onPress={() => setTeam(item)}
-            />
-          )}
-          horizontal
-        />
-        <S.NumberOfPlayers>{players.length}</S.NumberOfPlayers>
-      </S.HeaderList>
-
-      <Space height={20} />
-
-      <Button type="secondary" title="Remover Turma" />
+        <Button type="secondary" title="Remover Turma" />
+      </VStack>
     </S.Container>
   );
 }
