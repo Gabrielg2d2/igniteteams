@@ -13,6 +13,7 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
+import { ListEmpty } from "@components/ListEmpty";
 import * as S from "./styles";
 
 export type PlayersProps = {};
@@ -20,7 +21,16 @@ export type PlayersProps = {};
 export function Players(props: PlayersProps) {
   const { COLORS } = useTheme();
   const [value, setValue] = useState("");
-  const [players, setPlayers] = useState(["Gabriel", "Thiago", "Vargas"]);
+  const [players, setPlayers] = useState<string[]>([
+    "Jogador 1",
+    "Jogador 2",
+    "Jogador 3",
+    "Jogador 4",
+    "Jogador 5",
+    "Jogador 6",
+    "Jogador 7",
+    "Jogador 8",
+  ]);
   const [team, setTeam] = useState("Time A");
 
   function handleAddPlayer() {
@@ -36,8 +46,10 @@ export function Players(props: PlayersProps) {
     setValue("");
   }
 
-  function handleRemovePlayer() {
-    setPlayers(players.slice(0, players.length - 1));
+  function handleRemovePlayer(player: string) {
+    setPlayers(
+      players.filter((item) => item.toLowerCase() !== player.toLowerCase())
+    );
   }
 
   return (
@@ -86,8 +98,21 @@ export function Players(props: PlayersProps) {
           data={players}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <PlayerCard name={item} onPressRemove={handleRemovePlayer} />
+            <PlayerCard
+              name={item}
+              onPressRemove={() => handleRemovePlayer(item)}
+            />
           )}
+          contentContainerStyle={
+            !players.length ? { flex: 1 } : { paddingBottom: 40 }
+          }
+          ListEmptyComponent={
+            <ListEmpty
+              title="Lista vazia"
+              message="Não há jogadores adicionados ao time!"
+            />
+          }
+          showsVerticalScrollIndicator={false}
         />
 
         <Button type="secondary" title="Remover Turma" />
