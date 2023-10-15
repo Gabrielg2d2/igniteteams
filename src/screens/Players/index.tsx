@@ -8,8 +8,8 @@ import { Filter } from "@components/Filter";
 
 import { FlatList } from "react-native";
 import { useState } from "react";
-import { HStack } from "@components/HStack";
-import { VStack } from "@components/VStack";
+import { HStack } from "@components/Stacks/HStack";
+import { VStack } from "@components/Stacks/VStack";
 import { useTheme } from "styled-components/native";
 
 import * as S from "./styles";
