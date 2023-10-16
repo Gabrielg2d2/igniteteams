@@ -14,15 +14,22 @@ import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { ListEmpty } from "@components/ListEmpty";
+import { useRoute } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import * as S from "./styles";
+
+type RouteParams = {
+  group: string;
+};
 
 export type PlayersProps = {};
 
 export function Players(props: PlayersProps) {
+  const { COLORS } = useTheme();
+  const routes = useRoute();
+  const { group } = routes.params as RouteParams;
   const { goBack } = useNavigationCustom();
 
-  const { COLORS } = useTheme();
   const [value, setValue] = useState("");
   const [players, setPlayers] = useState<string[]>([
     "Jogador 1",
@@ -61,10 +68,7 @@ export function Players(props: PlayersProps) {
 
       <Space space={24} />
 
-      <Highlight
-        title="Nome da turma"
-        subtitle="Adicione a galera e separe os times"
-      />
+      <Highlight title={group} subtitle="Adicione a galera e separe os times" />
 
       <VStack space={12}>
         <HStack borderRadius={6} bgColor={COLORS.GRAY_700}>

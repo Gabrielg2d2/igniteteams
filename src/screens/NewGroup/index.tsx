@@ -5,10 +5,18 @@ import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { Space } from "@components/Space";
 import { useNavigationCustom } from "@routes/navigationCustom";
+import { useState } from "react";
+
 import * as S from "./styles";
 
 export function NewGroup() {
-  const { goBack } = useNavigationCustom();
+  const { navigateToPlayers, goBack } = useNavigationCustom();
+
+  const [newGroup, setNewGroup] = useState("");
+
+  function handleCreateGroup() {
+    navigateToPlayers(newGroup);
+  }
 
   return (
     <S.Container>
@@ -21,11 +29,19 @@ export function NewGroup() {
           subtitle="Crie a turma para adicionar as pessoas"
         />
 
-        <Input placeholder="Nome da turma" />
+        <Input
+          placeholder="Nome da turma"
+          value={newGroup}
+          onChangeText={setNewGroup}
+        />
 
         <Space space={20} />
 
-        <Button title="Criar" />
+        <Button
+          title="Criar"
+          disabled={!newGroup.length}
+          onPress={handleCreateGroup}
+        />
       </S.Content>
     </S.Container>
   );
