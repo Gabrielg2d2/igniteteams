@@ -14,11 +14,14 @@ import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { ListEmpty } from "@components/ListEmpty";
+import { useNavigationCustom } from "@routes/navigationCustom";
 import * as S from "./styles";
 
 export type PlayersProps = {};
 
 export function Players(props: PlayersProps) {
+  const { goBack } = useNavigationCustom();
+
   const { COLORS } = useTheme();
   const [value, setValue] = useState("");
   const [players, setPlayers] = useState<string[]>([
@@ -54,7 +57,7 @@ export function Players(props: PlayersProps) {
 
   return (
     <S.Container>
-      <Header showBackButton onPressBackButton={() => console.log("Voltar")} />
+      <Header showBackButton onPressBackButton={goBack} />
 
       <Space space={24} />
 

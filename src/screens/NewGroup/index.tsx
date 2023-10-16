@@ -4,12 +4,15 @@ import { Highlight } from "@components/Highlight";
 
 import { Input } from "@components/Input";
 import { Space } from "@components/Space";
+import { useNavigationCustom } from "@routes/navigationCustom";
 import * as S from "./styles";
 
 export function NewGroup() {
+  const { goBack } = useNavigationCustom();
+
   return (
     <S.Container>
-      <Header showBackButton onPressBackButton={() => console.log("Voltar")} />
+      <Header showBackButton onPressBackButton={goBack} />
 
       <S.Content>
         <S.Icon />
