@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eaef1b2d-0715-4556-ba9c-e66fed8b9d32"
+      }
+    },
+    "owner": "gabrielfrancelino",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/eaef1b2d-0715-4556-ba9c-e66fed8b9d32"
     }
   }
 }
