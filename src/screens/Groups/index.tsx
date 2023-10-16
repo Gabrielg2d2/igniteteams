@@ -6,9 +6,11 @@ import { FlatList } from "react-native";
 
 import { Button } from "@components/Button";
 import { ListEmpty } from "@components/ListEmpty";
+import { useNavigation } from "@react-navigation/native";
 import * as S from "./styles";
 
 export function Groups() {
+  const navigation = useNavigation();
   const [groups, setGroups] = useState<string[]>([
     "Galera do teams",
     "Galera do trampo",
@@ -19,6 +21,10 @@ export function Groups() {
     "Galera do churras",
     "Galera do futebol",
   ]);
+
+  function handleNavigateToNewGroup() {
+    navigation.navigate("newGroups");
+  }
 
   return (
     <S.Container>
@@ -47,10 +53,7 @@ export function Groups() {
         showsVerticalScrollIndicator={false}
       />
 
-      <Button
-        title="Criar nova turma"
-        onPress={() => console.log("Criar turma")}
-      />
+      <Button title="Criar nova turma" onPress={handleNavigateToNewGroup} />
     </S.Container>
   );
 }
