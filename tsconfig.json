@@ -5,9 +5,9 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
+      "@routes/*": ["./src/routes/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
-      "@routes/*": ["./src/routes/*"],
       "@screens/*": ["./src/screens/*"],
       "@storage/*": ["./src/storage/*"]
     }
