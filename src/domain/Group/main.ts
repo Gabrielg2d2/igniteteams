@@ -3,7 +3,6 @@ import { Repository } from "./repository/repository";
 export class Main {
   constructor(private repository = new Repository()) {}
 
-  // CRIAR NOVO GRUPO
   async createNewGroup(nameNewGroup: string) {
     const { errors, messages } = await this.repository.createNewGroup(
       nameNewGroup
@@ -20,11 +19,18 @@ export class Main {
     }
   }
 
-  // REMOVER GRUPO
-  removeGroup(nameGroup: string) {
-    // Verify if the group exists
-    // If yes, remove the group -> remove in repository
-    // If not, return an error - finish
+  async removeGroup(nameGroup: string) {
+    const { errors, messages } = await this.repository.removeGroup(nameGroup);
+    if (errors.length) {
+      for (const error of errors) {
+        alert(error);
+      }
+      return;
+    }
+
+    for (const message of messages) {
+      alert(message);
+    }
   }
 
   // ADICIONAR USUÁRIO AO GRUPO
