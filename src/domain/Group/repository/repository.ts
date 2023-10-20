@@ -1,5 +1,10 @@
 import { AdapterLocalStorage } from "./adapter-async-storage";
 
+type ResponseType = {
+  errors: string[];
+  messages: string[];
+};
+
 type UserType = {
   id: string;
   name: string;
@@ -16,13 +21,13 @@ export class Repository {
   keyGroup = "@group-value-key";
   constructor(private adapter = new AdapterLocalStorage()) {}
 
-  async listGroups() {
+  async listGroups(): Promise<GroupType[]> {
     const groups = await this.adapter.get(this.keyGroup);
     if (!groups) return [];
     return JSON.parse(groups) as GroupType[];
   }
 
-  async createNewGroup(nameNewGroup: string) {
+  async createNewGroup(nameNewGroup: string): Promise<ResponseType> {
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find(
@@ -52,20 +57,26 @@ export class Repository {
     };
   }
 
-  async removeGroup(id: string) {
+  async removeGroup(id: string): Promise<ResponseType> {
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find((group) => group.id === id);
 
     if (!groupAlreadyExists) {
       return {
-        error: ["Group not exists"],
+        errors: ["Group not exists"],
+        messages: [],
       };
     }
 
     const newGroups = result.filter((group) => group.id !== id);
 
     await this.adapter.set(this.keyGroup, JSON.stringify(newGroups));
+
+    return {
+      errors: [],
+      messages: ["Group removed successfully"],
+    };
   }
 
   // ADICIONAR USUÁRIO AO GRUPO
