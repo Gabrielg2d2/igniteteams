@@ -31,7 +31,8 @@ export class Repository {
 
     if (groupAlreadyExists) {
       return {
-        error: ["Group already exists"],
+        errors: ["Group already exists"],
+        messages: [],
       };
     }
 
@@ -44,6 +45,11 @@ export class Repository {
     result.push(newGroup);
 
     await this.adapter.set(this.keyGroup, JSON.stringify(result));
+
+    return {
+      errors: [],
+      messages: ["Group created successfully"],
+    };
   }
 
   async removeGroup(id: string) {

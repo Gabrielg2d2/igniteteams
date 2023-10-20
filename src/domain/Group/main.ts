@@ -1,13 +1,23 @@
+import { Repository } from "./repository/repository";
+
 export class Main {
-  constructor() {
-    console.log("Main");
-  }
+  constructor(private repository = new Repository()) {}
 
   // CRIAR NOVO GRUPO
-  createNewGroup(nameNewGroup: string) {
-    // Verify if the group already exists
-    // If not, create a new group -> register in repository
-    // If yes, return an error - finish
+  async createNewGroup(nameNewGroup: string) {
+    const { errors, messages } = await this.repository.createNewGroup(
+      nameNewGroup
+    );
+    if (errors.length) {
+      for (const error of errors) {
+        alert(error);
+      }
+      return;
+    }
+
+    for (const message of messages) {
+      alert(message);
+    }
   }
 
   // REMOVER GRUPO
@@ -29,5 +39,16 @@ export class Main {
     // Verify if the user exists
     // If yes, remove the user -> remove in repository
     // If not, return an error - finish
+  }
+
+  // Add user to group
+  addUserToGroup(nameUser: string, nameGroup: string) {
+    // Verify if the user exists
+    // If not, return an error - finish
+    // Verify if the group exists
+    // If not, return an error - finish
+    // Verify if the user is already in the group
+    // If yes, return an error - finish
+    // Add user to group -> register in repository
   }
 }
