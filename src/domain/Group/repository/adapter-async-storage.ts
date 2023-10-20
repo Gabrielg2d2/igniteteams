@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AdapterInterface } from "./interface-adapter";
 
-export class AdapterLocalStorage {
+export class AdapterLocalStorage implements AdapterInterface {
   async get(key: string) {
     try {
       const value = await AsyncStorage.getItem(key);
