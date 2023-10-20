@@ -11,7 +11,6 @@ export function Groups() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("Groups screen focused");
       let isActive = true;
 
       async function loadGroups() {
