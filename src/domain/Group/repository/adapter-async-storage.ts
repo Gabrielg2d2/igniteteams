@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export class Infra {
+export class AdapterLocalStorage {
   async get(key: string) {
     try {
       const value = await AsyncStorage.getItem(key);
@@ -14,8 +14,7 @@ export class Infra {
 
   async set(key: string, value: string) {
     try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(key, jsonValue);
+      await AsyncStorage.setItem(key, value);
     } catch (error) {
       throw new Error("Error on set data in AsyncStorage");
     }
