@@ -3,6 +3,10 @@ import { Repository } from "./repository/repository";
 export class Main {
   constructor(private repository = new Repository()) {}
 
+  async listGroups() {
+    return await this.repository.listGroups();
+  }
+
   async createNewGroup(nameNewGroup: string) {
     const { errors, messages } = await this.repository.createNewGroup(
       nameNewGroup
