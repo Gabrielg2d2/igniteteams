@@ -47,6 +47,8 @@ export class Repository {
       users: [],
     };
 
+    console.log("newGroup: ", newGroup);
+
     result.push(newGroup);
 
     await this.adapter.set(this.keyGroup, JSON.stringify(result));

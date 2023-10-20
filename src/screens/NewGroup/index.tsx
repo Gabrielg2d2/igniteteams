@@ -1,48 +1,35 @@
-import { Button } from "@components/Button";
-import { Header } from "@components/Header";
-import { Highlight } from "@components/Highlight";
-
-import { Input } from "@components/Input";
-import { Space } from "@components/Space";
+import { MainGroup } from "@domain/Group/main";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import { useState } from "react";
-
-import * as S from "./styles";
+import { NewGroupTemplate, NewGroupTemplateProps } from "./template";
 
 export function NewGroup() {
+  const [newGroup, setNewGroup] = useState("");
+  const [mainGroup] = useState(new MainGroup());
   const { navigateToPlayers, goBack } = useNavigationCustom();
 
-  const [newGroup, setNewGroup] = useState("");
+  async function handleCreateGroup() {
+    const { errors, messages } = await mainGroup.createNewGroup(newGroup);
+    if (errors.length) {
+      for (const error of errors) {
+        alert(error);
+      }
+      return;
+    }
 
-  function handleCreateGroup() {
+    for (const message of messages) {
+      alert(message);
+    }
+
     navigateToPlayers(newGroup);
   }
 
-  return (
-    <S.Container>
-      <Header showBackButton onPressBackButton={goBack} />
+  const propsTemplate: NewGroupTemplateProps = {
+    goBack,
+    handleCreateGroup,
+    newGroup,
+    setNewGroup,
+  };
 
-      <S.Content>
-        <S.Icon />
-        <Highlight
-          title="Nova turma"
-          subtitle="Crie a turma para adicionar as pessoas"
-        />
-
-        <Input
-          placeholder="Nome da turma"
-          value={newGroup}
-          onChangeText={setNewGroup}
-        />
-
-        <Space space={20} />
-
-        <Button
-          title="Criar"
-          disabled={!newGroup.length}
-          onPress={handleCreateGroup}
-        />
-      </S.Content>
-    </S.Container>
-  );
+  return <NewGroupTemplate {...propsTemplate} />;
 }

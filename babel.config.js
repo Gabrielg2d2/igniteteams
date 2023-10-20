@@ -13,6 +13,7 @@ module.exports = function (api) {
             "@components": "./src/components",
             "@screens": "./src/screens",
             "@storage": "./src/storage",
+            "@domain": "./src/domain",
           },
         },
       ],

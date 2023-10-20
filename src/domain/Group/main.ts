@@ -1,6 +1,6 @@
 import { Repository } from "./repository/repository";
 
-export class Main {
+export class MainGroup {
   constructor(private repository = new Repository()) {}
 
   async listGroups() {
@@ -8,33 +8,11 @@ export class Main {
   }
 
   async createNewGroup(nameNewGroup: string) {
-    const { errors, messages } = await this.repository.createNewGroup(
-      nameNewGroup
-    );
-    if (errors.length) {
-      for (const error of errors) {
-        alert(error);
-      }
-      return;
-    }
-
-    for (const message of messages) {
-      alert(message);
-    }
+    return await this.repository.createNewGroup(nameNewGroup);
   }
 
   async removeGroup(nameGroup: string) {
-    const { errors, messages } = await this.repository.removeGroup(nameGroup);
-    if (errors.length) {
-      for (const error of errors) {
-        alert(error);
-      }
-      return;
-    }
-
-    for (const message of messages) {
-      alert(message);
-    }
+    return await this.repository.removeGroup(nameGroup);
   }
 
   // ADICIONAR USUÁRIO AO GRUPO
