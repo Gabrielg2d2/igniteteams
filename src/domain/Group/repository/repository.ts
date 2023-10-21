@@ -18,8 +18,10 @@ type GroupType = {
 };
 
 export class Repository {
-  keyGroup = "@group-value-key";
-  constructor(private adapter = new AdapterLocalStorage()) {}
+  constructor(
+    private keyGroup = "@group-value-key",
+    private adapter = new AdapterLocalStorage()
+  ) {}
 
   async listGroups(): Promise<GroupType[]> {
     const groups = await this.adapter.get(this.keyGroup);
