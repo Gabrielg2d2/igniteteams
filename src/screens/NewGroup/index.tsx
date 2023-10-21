@@ -1,6 +1,7 @@
 import { MainGroup } from "@domain/Group/main";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import { useState } from "react";
+import { Alert } from "react-native";
 import { NewGroupTemplate, NewGroupTemplateProps } from "./template";
 
 export function NewGroup() {
@@ -12,13 +13,13 @@ export function NewGroup() {
     const { errors, messages } = await mainGroup.createNewGroup(newGroup);
     if (errors.length) {
       for (const error of errors) {
-        alert(error);
+        Alert.alert("Erro ao criar grupo", error);
       }
       return;
     }
 
     for (const message of messages) {
-      alert(message);
+      Alert.alert("Sucesso", message);
     }
 
     navigateToPlayers(newGroup);
