@@ -105,4 +105,66 @@ describe("Repository", () => {
       expect(response).toEqual({ errors: ["Group not exists"], messages: [] });
     });
   });
+
+  describe("addUserToGroup", () => {
+    it("should not add a user if group id is not provided", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+
+      const response = await repository.addNewUserToGroup(
+        "",
+        "User Name",
+        "Team Name"
+      );
+
+      expect(response).toEqual({
+        errors: ["Group id is required"],
+        messages: [],
+      });
+    });
+
+    it("should not add a user if user name is not provided", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+
+      const response = await repository.addNewUserToGroup("1", "", "Team Name");
+
+      expect(response).toEqual({
+        errors: ["User name is required"],
+        messages: [],
+      });
+    });
+
+    it("should not add a user if group does not exist", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+
+      const response = await repository.addNewUserToGroup(
+        "2",
+        "User Name",
+        "Team Name"
+      );
+
+      expect(response).toEqual({ errors: ["Group not exists"], messages: [] });
+    });
+
+    it("should add a user to a group", async () => {
+      const groups = [
+        { id: "1", name: "Test Group", users: [] },
+        { id: "2", name: "Test Group 2", users: [] },
+      ];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+
+      const response = await repository.addNewUserToGroup(
+        "1",
+        "User Name",
+        "Team Name"
+      );
+
+      expect(response).toEqual({
+        errors: [],
+        messages: ["User added successfully"],
+      });
+    });
+  });
 });
