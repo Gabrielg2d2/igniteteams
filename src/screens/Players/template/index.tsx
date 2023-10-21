@@ -28,7 +28,7 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
   const { COLORS } = useTheme();
   const routes = useRoute();
   const { group } = routes.params as RouteParams;
-  const { goBack } = useNavigationCustom();
+  const { navigateToGroups } = useNavigationCustom();
 
   const [value, setValue] = useState("");
   const [players, setPlayers] = useState<string[]>([
@@ -64,7 +64,7 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
 
   return (
     <S.Container>
-      <Header showBackButton onPressBackButton={goBack} />
+      <Header showBackButton onPressBackButton={navigateToGroups} />
 
       <Space space={24} />
 
