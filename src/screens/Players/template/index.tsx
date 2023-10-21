@@ -13,6 +13,7 @@ import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { ListEmpty } from "@components/ListEmpty";
+import { UserType } from "@domain/Group/types";
 import * as S from "./styles";
 
 export type PlayersTemplateProps = {
@@ -24,12 +25,16 @@ export type PlayersTemplateProps = {
   team: string;
   setValuePerson: (value: string) => void;
   valuePerson: string;
-  players: string[];
+  players: UserType[];
   groupName: string;
 };
 
 export function PlayersTemplate(props: PlayersTemplateProps) {
   const { COLORS } = useTheme();
+
+  const listCurrentPlayers = props.players.filter(
+    (item) => item.teams[0].toLowerCase() === props.team.toLowerCase()
+  );
 
   return (
     <S.Container>
@@ -59,15 +64,13 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
 
         <HStack space={2}>
           <FlatList
-            data={["time a", "time b"]}
+            data={["team a", "team b"]}
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
               <Filter
                 title={item}
                 isActive={item.toLowerCase() === props.team.toLowerCase()}
-                onPress={() =>
-                  props.setTeam(item === "time a" ? "team a" : "team b")
-                }
+                onPress={() => props.setTeam(item)}
               />
             )}
             horizontal
@@ -76,12 +79,12 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
         </HStack>
 
         <FlatList
-          data={props.players}
-          keyExtractor={(item) => item}
+          data={listCurrentPlayers}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <PlayerCard
-              name={item}
-              onPressRemove={() => props.handleRemovePlayer(item)}
+              name={item.name}
+              onPressRemove={() => props.handleRemovePlayer(item.name)}
             />
           )}
           contentContainerStyle={

@@ -1,7 +1,8 @@
 import { MainGroup } from "@domain/Group/main";
+import { UserType } from "@domain/Group/types";
 import { useRoute } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { PlayersTemplate, PlayersTemplateProps } from "./template";
 
@@ -16,47 +17,51 @@ export function Players() {
   const { navigateToGroups } = useNavigationCustom();
 
   const [valuePerson, setValuePerson] = useState("");
-  const [players, setPlayers] = useState<string[]>([
-    "Jogador 1",
-    "Jogador 2",
-    "Jogador 3",
-    "Jogador 4",
-    "Jogador 5",
-    "Jogador 6",
-    "Jogador 7",
-    "Jogador 8",
-  ]);
-  const [team, setTeam] = useState("Time A");
+  const [players, setPlayers] = useState<UserType[]>([]);
+  const [team, setTeam] = useState("team a");
 
-  async function handleAddPlayer() {
+  const handleAddPlayer = useCallback(async () => {
     const { errors, messages } = await mainGroup.addUserToGroup(
       groupId,
       valuePerson,
       team
     );
-    if (errors) {
+
+    console.log("messages: ", messages);
+
+    if (errors.length) {
       for (const error of errors) {
         Alert.alert("Erro Player", error);
       }
       return;
     }
 
-    if (messages) {
+    if (messages.length) {
       for (const message of messages) {
         Alert.alert("Player", message);
+        setValuePerson("");
       }
     }
-  }
+  }, [groupId, mainGroup, team, valuePerson]);
 
   function handleRemovePlayer(player: string) {
     setPlayers(
-      players.filter((item) => item.toLowerCase() !== player.toLowerCase())
+      players.filter((item) => item.name.toLowerCase() !== player.toLowerCase())
     );
   }
 
   function handleRemoveTeam() {
     setPlayers([]);
   }
+
+  useEffect(() => {
+    async function loadPlayers() {
+      const data = await mainGroup.listUsersFromGroup(groupId);
+      setPlayers(data);
+    }
+
+    loadPlayers();
+  }, [handleAddPlayer]);
 
   const propsTemplate: PlayersTemplateProps = {
     navigateToGroups,
