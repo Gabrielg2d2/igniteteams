@@ -33,7 +33,7 @@ export class Repository {
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find(
-      (group) => group.name === nameNewGroup
+      (group) => group.name.toUpperCase() === nameNewGroup.toUpperCase()
     );
 
     if (groupAlreadyExists) {
@@ -48,8 +48,6 @@ export class Repository {
       name: nameNewGroup,
       users: [],
     };
-
-    console.log("newGroup: ", newGroup);
 
     result.push(newGroup);
 
