@@ -84,7 +84,45 @@ export class Repository {
     };
   }
 
-  // ADICIONAR USUÁRIO AO GRUPO
+  async addNewUserToGroup(
+    idGroup: string,
+    userName: string
+  ): Promise<ResponseType> {
+    const result = await this.listGroups();
+
+    const groupAlreadyExists = result.find((group) => group.id === idGroup);
+
+    if (!groupAlreadyExists) {
+      return {
+        errors: ["Group not exists"],
+        messages: [],
+      };
+    }
+
+    const userAlreadyExists = groupAlreadyExists.users.find(
+      (user) => user.name.toUpperCase() === userName.toUpperCase()
+    );
+
+    if (userAlreadyExists) {
+      return {
+        errors: ["User already exists in this group"],
+        messages: [],
+      };
+    }
+
+    const newUser = {
+      id: String(Math.random()),
+      name: userName,
+      teams: [idGroup],
+    };
+
+    groupAlreadyExists.users.push(newUser);
+
+    return Promise.resolve({
+      errors: [],
+      messages: ["User added successfully"],
+    });
+  }
 
   // REMOVER USUÁRIO DO GRUPO
 
