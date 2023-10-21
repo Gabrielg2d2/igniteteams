@@ -23,10 +23,7 @@ export class MainGroup {
     return await this.repository.listUsersFromGroup(idGroup);
   }
 
-  // REMOVER USUÁRIO DO GRUPO
-  removeUser(nameUser: string) {
-    // Verify if the user exists
-    // If yes, remove the user -> remove in repository
-    // If not, return an error - finish
+  async removeUser(nameUser: string) {
+    return await this.repository.removeUser(nameUser);
   }
 }

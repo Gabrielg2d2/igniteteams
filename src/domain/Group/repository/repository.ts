@@ -170,5 +170,40 @@ export class Repository {
     };
   }
 
-  // REMOVER USUÁRIO DO GRUPO
+  async removeUser(id: string): Promise<ResponseType> {
+    if (!id.trim()) {
+      return {
+        errors: ["User id is required"],
+        messages: [],
+      };
+    }
+
+    const result = await this.listGroups();
+
+    const userAlreadyExists = result.find((group) =>
+      group.users.find((user) => user.id === id)
+    );
+
+    if (!userAlreadyExists) {
+      return {
+        errors: ["User not exists"],
+        messages: [],
+      };
+    }
+
+    const arrayRemovingUser = result.map((group) => {
+      const newUsers = group.users.filter((user) => user.id !== id);
+      return {
+        ...group,
+        users: newUsers,
+      };
+    });
+
+    await this.adapter.set(this.keyGroup, JSON.stringify(arrayRemovingUser));
+
+    return {
+      errors: [],
+      messages: ["User removed successfully"],
+    };
+  }
 }
