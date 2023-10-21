@@ -10,6 +10,10 @@ export function NewGroup() {
   const { navigateToPlayers, goBack } = useNavigationCustom();
 
   async function handleCreateGroup() {
+    if (!newGroup.trim().length) {
+      setNewGroup("");
+    }
+
     const { errors, messages } = await mainGroup.createNewGroup(newGroup);
     if (errors.length) {
       for (const error of errors) {
