@@ -1,4 +1,4 @@
-import { GroupType } from "../types";
+import { GroupType, UserType } from "../types";
 import { AdapterLocalStorage } from "./adapter-async-storage";
 
 type ResponseType = {
@@ -84,6 +84,28 @@ export class Repository {
     };
   }
 
+  async listUsersFromGroup(idGroup: string): Promise<UserType[]> {
+    if (!idGroup.trim()) {
+      return [];
+    }
+
+    const result = await this.listGroups();
+
+    const groupAlreadyExists = result.find((group) => group.id === idGroup);
+
+    if (!groupAlreadyExists) {
+      return [];
+    }
+
+    const orderedUserList = groupAlreadyExists.users.sort((a, b) => {
+      if (a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      return 0;
+    });
+
+    return orderedUserList;
+  }
+
   async addNewUserToGroup(
     idGroup: string,
     userName: string,
@@ -140,13 +162,13 @@ export class Repository {
 
     groupAlreadyExists.users.push(newUser);
 
-    return Promise.resolve({
+    await this.adapter.set(this.keyGroup, JSON.stringify(result));
+
+    return {
       errors: [],
       messages: ["User added successfully"],
-    });
+    };
   }
 
   // REMOVER USUÁRIO DO GRUPO
-
-  // LISTAR USUÁRIOS DO GRUPO
 }

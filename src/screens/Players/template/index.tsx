@@ -22,8 +22,8 @@ export type PlayersTemplateProps = {
   handleRemovePlayer: (player: string) => void;
   setTeam: (team: string) => void;
   team: string;
-  setValue: (value: string) => void;
-  value: string;
+  setValuePerson: (value: string) => void;
+  valuePerson: string;
   players: string[];
   groupName: string;
 };
@@ -47,13 +47,13 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
           <Input
             placeholder="Nome da pessoa"
             autoCorrect={false}
-            onChange={(e) => props.setValue(e.nativeEvent.text)}
-            value={props.value}
+            onChange={(e) => props.setValuePerson(e.nativeEvent.text)}
+            value={props.valuePerson}
           />
           <ButtonIcon
             icon="add"
             onPress={props.handleAddPlayer}
-            disabled={!props.value.length}
+            disabled={!props.valuePerson.length}
           />
         </HStack>
 
@@ -65,7 +65,9 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
               <Filter
                 title={item}
                 isActive={item.toLowerCase() === props.team.toLowerCase()}
-                onPress={() => props.setTeam(item)}
+                onPress={() =>
+                  props.setTeam(item === "time a" ? "team a" : "team b")
+                }
               />
             )}
             horizontal

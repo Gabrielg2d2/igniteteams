@@ -27,7 +27,7 @@ export function GroupsTemplate(props: GroupsTemplateProps) {
         renderItem={({ item }) => (
           <GroupCard
             title={item.name}
-            onPress={() => props.navigateToPlayers(item.name)}
+            onPress={() => props.navigateToPlayers(item.id)}
           />
         )}
         contentContainerStyle={

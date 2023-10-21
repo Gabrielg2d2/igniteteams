@@ -1,18 +1,21 @@
+import { MainGroup } from "@domain/Group/main";
 import { useRoute } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import { useState } from "react";
+import { Alert } from "react-native";
 import { PlayersTemplate, PlayersTemplateProps } from "./template";
 
 type RouteParams = {
-  group: string;
+  groupId: string;
 };
 
 export function Players() {
   const routes = useRoute();
-  const { group } = routes.params as RouteParams;
+  const { groupId } = routes.params as RouteParams;
+  const [mainGroup] = useState(new MainGroup());
   const { navigateToGroups } = useNavigationCustom();
 
-  const [value, setValue] = useState("");
+  const [valuePerson, setValuePerson] = useState("");
   const [players, setPlayers] = useState<string[]>([
     "Jogador 1",
     "Jogador 2",
@@ -25,17 +28,24 @@ export function Players() {
   ]);
   const [team, setTeam] = useState("Time A");
 
-  function handleAddPlayer() {
-    if (!value) return;
-    const result = players.find(
-      (player) => player.toLowerCase() === value.toLowerCase()
+  async function handleAddPlayer() {
+    const { errors, messages } = await mainGroup.addUserToGroup(
+      groupId,
+      valuePerson,
+      team
     );
-    if (result) {
-      return alert("Já existe um jogador com esse nome");
+    if (errors) {
+      for (const error of errors) {
+        Alert.alert("Erro Player", error);
+      }
+      return;
     }
 
-    setPlayers([...players, value]);
-    setValue("");
+    if (messages) {
+      for (const message of messages) {
+        Alert.alert("Player", message);
+      }
+    }
   }
 
   function handleRemovePlayer(player: string) {
@@ -55,10 +65,10 @@ export function Players() {
     handleRemovePlayer,
     setTeam,
     team,
-    setValue,
-    value,
+    setValuePerson,
+    valuePerson,
     players,
-    groupName: group,
+    groupName: groupId,
   };
 
   return <PlayersTemplate {...propsTemplate} />;
