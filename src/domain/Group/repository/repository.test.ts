@@ -12,57 +12,97 @@ describe("Repository", () => {
     repository = new Repository("@group-value-key-test", mockAdapter);
   });
 
-  it("should list groups", async () => {
-    const mockData = JSON.stringify([
-      { id: "1", name: "Test Group", users: [] },
-    ]);
-    mockAdapter.get.mockResolvedValueOnce(mockData);
+  describe("listGroups", () => {
+    it("should list groups", async () => {
+      const mockData = JSON.stringify([
+        { id: "1", name: "Test Group", users: [] },
+      ]);
+      mockAdapter.get.mockResolvedValueOnce(mockData);
 
-    const groups = await repository.listGroups();
+      const groups = await repository.listGroups();
 
-    expect(groups).toEqual([{ id: "1", name: "Test Group", users: [] }]);
-  });
-
-  it("should create a new group", async () => {
-    mockAdapter.get.mockResolvedValueOnce(JSON.stringify([]));
-    const response = await repository.createNewGroup("Test Group");
-
-    expect(response).toEqual({
-      errors: [],
-      messages: ["Group created successfully"],
+      expect(groups).toEqual([{ id: "1", name: "Test Group", users: [] }]);
     });
   });
 
-  it("should not create a group if it already exists", async () => {
-    const existingGroup = [{ id: "1", name: "Test Group", users: [] }];
-    mockAdapter.get.mockResolvedValueOnce(JSON.stringify(existingGroup));
+  describe("createNewGroup", () => {
+    it("should create a new group", async () => {
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify([]));
+      const response = await repository.createNewGroup("Test Group");
 
-    const response = await repository.createNewGroup("test Group");
+      expect(response).toEqual({
+        errors: [],
+        messages: ["Group created successfully"],
+      });
+    });
 
-    expect(response).toEqual({
-      errors: ["Group already exists"],
-      messages: [],
+    it("should not create a group if it already exists", async () => {
+      const existingGroup = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(existingGroup));
+
+      const response = await repository.createNewGroup("test Group");
+
+      expect(response).toEqual({
+        errors: ["Group already exists"],
+        messages: [],
+      });
+    });
+
+    it("should create a new group", async () => {
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify([]));
+      const response = await repository.createNewGroup("Test Group");
+
+      expect(response).toEqual({
+        errors: [],
+        messages: ["Group created successfully"],
+      });
+    });
+
+    it("should not create a group if it already exists", async () => {
+      const existingGroup = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(existingGroup));
+
+      const response = await repository.createNewGroup("test Group");
+
+      expect(response).toEqual({
+        errors: ["Group already exists"],
+        messages: [],
+      });
     });
   });
 
-  it("should remove a group", async () => {
-    const groups = [{ id: "1", name: "Test Group", users: [] }];
-    mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+  describe("removeGroup", () => {
+    it("should not remove a group if id is not provided id", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
 
-    const response = await repository.removeGroup("1");
+      const response = await repository.removeGroup("");
 
-    expect(response).toEqual({
-      errors: [],
-      messages: ["Group removed successfully"],
+      expect(response).toEqual({
+        errors: ["Group id is required"],
+        messages: [],
+      });
     });
-  });
 
-  it("should not remove a group if it does not exist", async () => {
-    const groups = [{ id: "1", name: "Test Group", users: [] }];
-    mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+    it("should remove a group", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
 
-    const response = await repository.removeGroup("2");
+      const response = await repository.removeGroup("1");
 
-    expect(response).toEqual({ errors: ["Group not exists"], messages: [] });
+      expect(response).toEqual({
+        errors: [],
+        messages: ["Group removed successfully"],
+      });
+    });
+
+    it("should not remove a group if it does not exist", async () => {
+      const groups = [{ id: "1", name: "Test Group", users: [] }];
+      mockAdapter.get.mockResolvedValueOnce(JSON.stringify(groups));
+
+      const response = await repository.removeGroup("2");
+
+      expect(response).toEqual({ errors: ["Group not exists"], messages: [] });
+    });
   });
 });
