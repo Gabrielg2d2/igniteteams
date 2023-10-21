@@ -19,6 +19,13 @@ export class Repository {
   }
 
   async createNewGroup(nameNewGroup: string): Promise<ResponseType> {
+    if (!nameNewGroup) {
+      return {
+        errors: ["Group name is required"],
+        messages: [],
+      };
+    }
+
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find(
@@ -49,6 +56,13 @@ export class Repository {
   }
 
   async removeGroup(id: string): Promise<ResponseType> {
+    if (!id) {
+      return {
+        errors: ["Group id is required"],
+        messages: [],
+      };
+    }
+
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find((group) => group.id === id);
