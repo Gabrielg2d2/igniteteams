@@ -84,7 +84,7 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
           renderItem={({ item }) => (
             <PlayerCard
               name={item.name}
-              onPressRemove={() => props.handleRemovePlayer(item.name)}
+              onPressRemove={() => props.handleRemovePlayer(item.id)}
             />
           )}
           contentContainerStyle={

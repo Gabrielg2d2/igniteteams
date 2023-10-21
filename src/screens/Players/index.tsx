@@ -20,14 +20,17 @@ export function Players() {
   const [players, setPlayers] = useState<UserType[]>([]);
   const [team, setTeam] = useState("team a");
 
+  const loadPlayers = useCallback(async () => {
+    const data = await mainGroup.listUsersFromGroup(groupId);
+    setPlayers(data);
+  }, [groupId]);
+
   const handleAddPlayer = useCallback(async () => {
     const { errors, messages } = await mainGroup.addUserToGroup(
       groupId,
       valuePerson,
       team
     );
-
-    console.log("messages: ", messages);
 
     if (errors.length) {
       for (const error of errors) {
@@ -39,29 +42,56 @@ export function Players() {
     if (messages.length) {
       for (const message of messages) {
         Alert.alert("Player", message);
+        await loadPlayers();
         setValuePerson("");
       }
     }
   }, [groupId, mainGroup, team, valuePerson]);
 
-  function handleRemovePlayer(player: string) {
-    setPlayers(
-      players.filter((item) => item.name.toLowerCase() !== player.toLowerCase())
-    );
-  }
+  const handleRemovePlayer = useCallback(
+    async (playerId: string) => {
+      const { errors, messages } = await mainGroup.removeUser(playerId);
 
-  function handleRemoveTeam() {
-    setPlayers([]);
-  }
+      if (errors.length) {
+        for (const error of errors) {
+          Alert.alert("Erro - Remover Player", error);
+        }
+        return;
+      }
 
-  useEffect(() => {
-    async function loadPlayers() {
-      const data = await mainGroup.listUsersFromGroup(groupId);
-      setPlayers(data);
+      if (messages.length) {
+        for (const message of messages) {
+          Alert.alert("Remover Player", message);
+          await loadPlayers();
+          setValuePerson("");
+        }
+      }
+    },
+    [mainGroup]
+  );
+
+  const handleRemoveTeam = useCallback(async () => {
+    const { errors, messages } = await mainGroup.removeGroup(groupId);
+
+    if (errors.length) {
+      for (const error of errors) {
+        Alert.alert("Erro - Remover Time", error);
+      }
+      return;
     }
 
+    if (messages.length) {
+      for (const message of messages) {
+        Alert.alert("Remover Time", message);
+        await loadPlayers();
+        setValuePerson("");
+      }
+    }
+  }, [groupId, mainGroup]);
+
+  useEffect(() => {
     loadPlayers();
-  }, [handleAddPlayer]);
+  }, []);
 
   const propsTemplate: PlayersTemplateProps = {
     navigateToGroups,
