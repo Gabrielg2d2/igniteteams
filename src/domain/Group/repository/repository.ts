@@ -89,6 +89,27 @@ export class Repository {
     userName: string,
     teamName: string
   ): Promise<ResponseType> {
+    if (!idGroup.trim()) {
+      return {
+        errors: ["Group id is required"],
+        messages: [],
+      };
+    }
+
+    if (!userName.trim()) {
+      return {
+        errors: ["User name is required"],
+        messages: [],
+      };
+    }
+
+    if (!teamName.trim()) {
+      return {
+        errors: ["Team name is required"],
+        messages: [],
+      };
+    }
+
     const result = await this.listGroups();
 
     const groupAlreadyExists = result.find((group) => group.id === idGroup);
