@@ -5,19 +5,8 @@ import { FlatList } from "react-native";
 
 import { Button } from "@components/Button";
 import { ListEmpty } from "@components/ListEmpty";
+import { GroupType } from "@domain/Group/types";
 import * as S from "./styles";
-
-type UserType = {
-  id: string;
-  name: string;
-  teams: string[];
-};
-
-export type GroupType = {
-  id: string;
-  name: string;
-  users: UserType[];
-};
 
 export type GroupsTemplateProps = {
   groups: GroupType[];

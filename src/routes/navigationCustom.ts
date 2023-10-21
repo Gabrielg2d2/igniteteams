@@ -1,3 +1,4 @@
+import { GroupType } from "@domain/Group/types";
 import { useNavigation } from "@react-navigation/native";
 
 export const useNavigationCustom = () => {
@@ -15,7 +16,7 @@ export const useNavigationCustom = () => {
     navigation.navigate("newGroups");
   }
 
-  function navigateToPlayers(group: string) {
+  function navigateToPlayers(group: GroupType) {
     navigation.navigate("players", { group });
   }
 

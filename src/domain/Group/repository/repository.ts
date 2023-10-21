@@ -1,20 +1,9 @@
+import { GroupType } from "../types";
 import { AdapterLocalStorage } from "./adapter-async-storage";
 
 type ResponseType = {
   errors: string[];
   messages: string[];
-};
-
-type UserType = {
-  id: string;
-  name: string;
-  teams: string[];
-};
-
-type GroupType = {
-  id: string;
-  name: string;
-  users: UserType[];
 };
 
 export class Repository {

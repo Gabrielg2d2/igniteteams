@@ -14,17 +14,16 @@ import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { ListEmpty } from "@components/ListEmpty";
+import { GroupType } from "@domain/Group/types";
 import { useRoute } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import * as S from "./styles";
 
 type RouteParams = {
-  group: string;
+  group: GroupType;
 };
 
-export type PlayersTemplateProps = {};
-
-export function PlayersTemplate(props: PlayersTemplateProps) {
+export function PlayersTemplate() {
   const { COLORS } = useTheme();
   const routes = useRoute();
   const { group } = routes.params as RouteParams;
@@ -68,7 +67,10 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
 
       <Space space={24} />
 
-      <Highlight title={group} subtitle="Adicione a galera e separe os times" />
+      <Highlight
+        title={group.name}
+        subtitle="Adicione a galera e separe os times"
+      />
 
       <VStack space={12}>
         <HStack borderRadius={6} bgColor={COLORS.GRAY_700}>

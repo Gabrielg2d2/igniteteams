@@ -1,8 +1,9 @@
 import { MainGroup } from "@domain/Group/main";
+import { GroupType } from "@domain/Group/types";
 import { useFocusEffect } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
 import { useCallback, useState } from "react";
-import { GroupType, GroupsTemplate, GroupsTemplateProps } from "./template";
+import { GroupsTemplate, GroupsTemplateProps } from "./template";
 
 export function Groups() {
   const [groups, setGroups] = useState<GroupType[]>([]);
