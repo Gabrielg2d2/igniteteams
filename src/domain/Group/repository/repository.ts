@@ -86,7 +86,8 @@ export class Repository {
 
   async addNewUserToGroup(
     idGroup: string,
-    userName: string
+    userName: string,
+    teamName: string
   ): Promise<ResponseType> {
     const result = await this.listGroups();
 
@@ -113,7 +114,7 @@ export class Repository {
     const newUser = {
       id: String(Math.random()),
       name: userName,
-      teams: [idGroup],
+      teams: [teamName],
     };
 
     groupAlreadyExists.users.push(newUser);
