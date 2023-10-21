@@ -83,8 +83,7 @@ export function Players() {
     if (messages.length) {
       for (const message of messages) {
         Alert.alert("Remover Time", message);
-        await loadPlayers();
-        setValuePerson("");
+        navigateToGroups();
       }
     }
   }, [groupId, mainGroup]);
