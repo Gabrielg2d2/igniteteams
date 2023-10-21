@@ -19,7 +19,7 @@ export class Repository {
   }
 
   async createNewGroup(nameNewGroup: string): Promise<ResponseType> {
-    if (!nameNewGroup) {
+    if (!nameNewGroup.trim()) {
       return {
         errors: ["Group name is required"],
         messages: [],
@@ -56,7 +56,7 @@ export class Repository {
   }
 
   async removeGroup(id: string): Promise<ResponseType> {
-    if (!id) {
+    if (!id.trim()) {
       return {
         errors: ["Group id is required"],
         messages: [],
