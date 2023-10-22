@@ -9,7 +9,7 @@ import { Space } from "@components/Space";
 import { PlayerCard } from "@components/PlayerCard";
 import { HStack } from "@components/Stacks/HStack";
 import { VStack } from "@components/Stacks/VStack";
-import { FlatList } from "react-native";
+import { FlatList, TextInput } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { ListEmpty } from "@components/ListEmpty";
@@ -27,6 +27,7 @@ export type PlayersTemplateProps = {
   valuePerson: string;
   players: UserType[];
   groupName: string;
+  inputRefNewPlayerName: React.RefObject<TextInput>;
 };
 
 export function PlayersTemplate(props: PlayersTemplateProps) {
@@ -50,6 +51,7 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
       <VStack space={12}>
         <HStack borderRadius={6} bgColor={COLORS.GRAY_700}>
           <Input
+            inputRef={props.inputRefNewPlayerName}
             placeholder="Nome da pessoa"
             autoCorrect={false}
             onChange={(e) => props.setValuePerson(e.nativeEvent.text)}
