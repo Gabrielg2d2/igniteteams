@@ -14,11 +14,6 @@ npm run start ou yarn start ou npx expor start
 
 ```
 
-<div style="width: 100%; display: flex; flex-direction: column; align-items: center; border: 2px solid #e0e0e0; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-  <p style="margin-bottom: 10px;">Project Demonstration</p>
-  <img src="./doc/mobile8.gif" width="250" height="500" alt="Demonstração do projeto" />
-</div>
-
 This is a simple project, developed to solidify my knowledge in React Native.
 
 I chose to implement the **DDD (Domain-Driven Design)** pattern in this project, even though it's a simple application. The primary reason for this decision was to further refine my understanding and practice of these concepts.
@@ -29,13 +24,9 @@ A highlight of this project is the clear **separation between the user interface
 
 Regarding tests, I focused them on the most critical part of the application. In this context, tests were applied exclusively to the `repository`, since it simulates a backend.
 
-<div style="display: flex; justify-content: space-between;">
-<img src="./doc/mobile.png" width="250" height="500" />
-<img src="./doc/mobile1.png" width="250" height="500" />
-<img src="./doc/mobile2.png" width="250" height="500" />
-<img src="./doc/mobile3.png" width="250" height="500" />
-<img src="./doc/mobile4.png" width="250" height="500" />
-<img src="./doc/mobile6.png" width="250" height="500" />
+<div style="width: 100%; display: flex; flex-direction: column; align-items: center; border: 2px solid #e0e0e0; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+  <p style="margin-bottom: 10px;">Project Demonstration</p>
+  <img src="./doc/mobile8.gif" width="250" height="500" alt="Demonstração do projeto" />
 </div>
 
 ### Run the project with IOS:
