@@ -1,12 +1,8 @@
 import { GroupType, UserType } from "../types";
 import { AdapterLocalStorage } from "./adapter-async-storage";
+import { IRepository } from "./interface-repository";
 
-type ResponseType = {
-  errors: string[];
-  messages: string[];
-};
-
-export class Repository {
+export class Repository implements IRepository {
   constructor(
     private keyGroup = "@group-value-key",
     private adapter = new AdapterLocalStorage()
@@ -18,7 +14,7 @@ export class Repository {
     return JSON.parse(groups) as GroupType[];
   }
 
-  async createNewGroup(nameNewGroup: string): Promise<ResponseType> {
+  async createNewGroup(nameNewGroup: string) {
     if (!nameNewGroup.trim()) {
       return {
         errors: ["Group name is required"],
@@ -55,7 +51,7 @@ export class Repository {
     };
   }
 
-  async removeGroup(id: string): Promise<ResponseType> {
+  async removeGroup(id: string) {
     if (!id.trim()) {
       return {
         errors: ["Group id is required"],
@@ -106,11 +102,7 @@ export class Repository {
     return orderedUserList;
   }
 
-  async addNewUserToGroup(
-    idGroup: string,
-    userName: string,
-    teamName: string
-  ): Promise<ResponseType> {
+  async addNewUserToGroup(idGroup: string, userName: string, teamName: string) {
     if (!idGroup.trim()) {
       return {
         errors: ["Group id is required"],
@@ -170,7 +162,7 @@ export class Repository {
     };
   }
 
-  async removeUser(id: string): Promise<ResponseType> {
+  async removeUser(id: string) {
     if (!id.trim()) {
       return {
         errors: ["User id is required"],
