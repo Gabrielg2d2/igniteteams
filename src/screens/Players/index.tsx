@@ -2,8 +2,8 @@ import { MainGroup } from "@domain/Group/main";
 import { UserType } from "@domain/Group/types";
 import { useRoute } from "@react-navigation/native";
 import { useNavigationCustom } from "@routes/navigationCustom";
-import { useCallback, useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Alert, Platform, TextInput } from "react-native";
 import { PlayersTemplate, PlayersTemplateProps } from "./template";
 
 type RouteParams = {
@@ -20,6 +20,7 @@ export function Players() {
   const [valuePerson, setValuePerson] = useState("");
   const [players, setPlayers] = useState<UserType[]>([]);
   const [team, setTeam] = useState("team a");
+  const inputRefNewPlayerName = useRef<TextInput>(null);
 
   const loadPlayers = useCallback(async () => {
     const data = await mainGroup.listUsersFromGroup(groupId);
@@ -45,6 +46,7 @@ export function Players() {
         Alert.alert("Player", message);
         await loadPlayers();
         setValuePerson("");
+        inputRefNewPlayerName.current?.blur();
       }
     }
   }, [groupId, mainGroup, team, valuePerson]);
@@ -73,6 +75,36 @@ export function Players() {
 
   const handleRemoveTeam = useCallback(async () => {
     const partOfTheName = groupName.slice(0, -1);
+
+    if (Platform.OS === "android") {
+      return Alert.alert("Remover Time", "Deseja realmente remover o grupo?", [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Remover",
+          onPress: async () => {
+            const { errors, messages } = await mainGroup.removeGroup(groupId);
+
+            if (errors.length) {
+              for (const error of errors) {
+                Alert.alert("Erro - Remover Time", error);
+              }
+              return;
+            }
+
+            if (messages.length) {
+              for (const message of messages) {
+                Alert.alert("Remover Time", message);
+                navigateToGroups();
+              }
+            }
+          },
+        },
+      ]);
+    }
 
     Alert.prompt(
       "Remover Time",
@@ -132,6 +164,7 @@ export function Players() {
     valuePerson,
     players,
     groupName,
+    inputRefNewPlayerName,
   };
 
   return <PlayersTemplate {...propsTemplate} />;
