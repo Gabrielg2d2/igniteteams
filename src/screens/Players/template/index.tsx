@@ -56,6 +56,8 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
             autoCorrect={false}
             onChange={(e) => props.setValuePerson(e.nativeEvent.text)}
             value={props.valuePerson}
+            onSubmitEditing={props.handleAddPlayer}
+            returnKeyType="send"
           />
           <ButtonIcon
             icon="add"

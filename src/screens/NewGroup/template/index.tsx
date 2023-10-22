@@ -30,6 +30,8 @@ export function NewGroupTemplate(props: NewGroupTemplateProps) {
           placeholder="Nome da turma"
           value={props.newGroup}
           onChangeText={props.setNewGroup}
+          onSubmitEditing={props.handleCreateGroup}
+          returnKeyType="send"
         />
 
         <Space space={20} />
