@@ -15,7 +15,12 @@ export const useNavigationCustom = () => {
     navigation.navigate("newGroups");
   }
 
-  function navigateToPlayers(groupName: string, groupId: string) {
+  type NavigateToPlayersProps = {
+    groupName: string;
+    groupId: string;
+  };
+
+  function navigateToPlayers({ groupName, groupId }: NavigateToPlayersProps) {
     navigation.navigate("players", { groupName, groupId });
   }
 

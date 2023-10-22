@@ -26,7 +26,7 @@ export function NewGroup() {
       Alert.alert("Sucesso", message);
       const idGroup = data?.newGroup?.id ?? "";
       const namGroup = data?.newGroup?.name ?? "";
-      navigateToPlayers(namGroup, idGroup);
+      navigateToPlayers({ groupName: namGroup, groupId: idGroup });
     }
   }
 

@@ -8,10 +8,15 @@ import { ListEmpty } from "@components/ListEmpty";
 import { GroupType } from "@domain/Group/types";
 import * as S from "./styles";
 
+type NavigationPlayersProps = {
+  groupId: string;
+  groupName: string;
+};
+
 export type GroupsTemplateProps = {
   groups: GroupType[];
   navigateToNewGroups: () => void;
-  navigateToPlayers: (groupId: string, groupName: string) => void;
+  navigateToPlayers: (props: NavigationPlayersProps) => void;
 };
 
 export function GroupsTemplate(props: GroupsTemplateProps) {
@@ -27,7 +32,12 @@ export function GroupsTemplate(props: GroupsTemplateProps) {
         renderItem={({ item }) => (
           <GroupCard
             title={item.name}
-            onPress={() => props.navigateToPlayers(item.id, item.name)}
+            onPress={() =>
+              props.navigateToPlayers({
+                groupId: item.id,
+                groupName: item.name,
+              })
+            }
           />
         )}
         contentContainerStyle={
