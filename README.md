@@ -31,7 +31,7 @@ Regarding tests, I focused them on the most critical part of the application. In
 
 <div style="margin-bottom: 30px; width: 100%; display: flex; flex-direction: column; align-items: center; border: 2px solid #e0e0e0; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
   <p style="margin-bottom: 10px;">Test</p>
-  <img src="./doc/mobile6.png" width="250" height="500" alt="image test" />
+  <img src="./doc/mobile6.png" alt="image test" />
 </div>
 
 ### Run the project with IOS:
