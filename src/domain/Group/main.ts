@@ -7,16 +7,20 @@ export class MainGroup {
     return await this.repository.listGroups();
   }
 
-  async createNewGroup(nameNewGroup: string) {
-    return await this.repository.createNewGroup(nameNewGroup);
+  async createNewGroup(newNameGroup: string) {
+    return await this.repository.createNewGroup(newNameGroup);
   }
 
   async removeGroup(nameGroup: string) {
     return await this.repository.removeGroup(nameGroup);
   }
 
-  async addUserToGroup(idGroup: string, nameUser: string, teamName: string) {
-    return await this.repository.addNewUserToGroup(idGroup, nameUser, teamName);
+  async addUserToGroup(idGroup: string, newUserName: string, nameTeam: string) {
+    return await this.repository.addNewUserToGroup(
+      idGroup,
+      newUserName,
+      nameTeam
+    );
   }
 
   async listUsersFromGroup(idGroup: string) {
