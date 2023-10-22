@@ -49,7 +49,7 @@ export class Repository implements IRepository {
       errors: [],
       messages: ["Group created successfully"],
       data: {
-        data: newGroup,
+        newGroup: newGroup,
       },
     };
   }
