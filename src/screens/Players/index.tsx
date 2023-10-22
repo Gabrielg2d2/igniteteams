@@ -13,7 +13,7 @@ type RouteParams = {
 
 export function Players() {
   const routes = useRoute();
-  const { groupId, groupName } = routes.params as RouteParams;
+  const { groupName, groupId } = routes.params as RouteParams;
   const [mainGroup] = useState(new MainGroup());
   const { navigateToGroups } = useNavigationCustom();
 

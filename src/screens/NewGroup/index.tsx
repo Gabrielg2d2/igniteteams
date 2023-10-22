@@ -14,7 +14,7 @@ export function NewGroup() {
       setNewGroup("");
     }
 
-    const { errors, messages } = await mainGroup.createNewGroup(newGroup);
+    const { errors, messages, data } = await mainGroup.createNewGroup(newGroup);
     if (errors.length) {
       for (const error of errors) {
         Alert.alert("Erro ao criar grupo", error);
@@ -24,9 +24,10 @@ export function NewGroup() {
 
     for (const message of messages) {
       Alert.alert("Sucesso", message);
+      const idGroup = data?.data.id ?? "";
+      const namGroup = data?.data.name ?? "";
+      navigateToPlayers(namGroup, idGroup);
     }
-
-    navigateToPlayers(newGroup);
   }
 
   const propsTemplate: NewGroupTemplateProps = {
