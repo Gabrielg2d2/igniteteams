@@ -28,6 +28,13 @@ Regarding tests, I focused them on the most critical part of the application. In
 <img src="./doc/mobile.png" width="250" height="500" />
 <img src="./doc/mobile1.png" width="250" height="500" />
 <img src="./doc/mobile2.png" width="250" height="500" />
+<img src="./doc/mobile3.png" width="250" height="500" />
+<img src="./doc/mobile4.png" width="250" height="500" />
+<img src="./doc/mobile6.png" width="250" height="500" />
+</div>
+
+<div style="width: 100%; display: flex; justify-content: center;">
+<video src="./doc/mobile7.mov" width="250" height="500" controls />
 </div>
 
 ### Run the project with IOS:
