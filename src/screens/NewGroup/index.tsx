@@ -24,8 +24,8 @@ export function NewGroup() {
 
     for (const message of messages) {
       Alert.alert("Sucesso", message);
-      const idGroup = data?.newGroup.id ?? "";
-      const namGroup = data?.newGroup.name ?? "";
+      const idGroup = data?.newGroup?.id ?? "";
+      const namGroup = data?.newGroup?.name ?? "";
       navigateToPlayers(namGroup, idGroup);
     }
   }
