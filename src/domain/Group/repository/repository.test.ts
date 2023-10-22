@@ -33,6 +33,13 @@ describe("Repository", () => {
       expect(response).toEqual({
         errors: [],
         messages: ["Group created successfully"],
+        data: {
+          newGroup: {
+            id: expect.any(String),
+            name: "Test Group",
+            users: [],
+          },
+        },
       });
     });
 
@@ -45,6 +52,9 @@ describe("Repository", () => {
       expect(response).toEqual({
         errors: ["Group already exists"],
         messages: [],
+        data: {
+          newGroup: null,
+        },
       });
     });
 
@@ -55,6 +65,13 @@ describe("Repository", () => {
       expect(response).toEqual({
         errors: [],
         messages: ["Group created successfully"],
+        data: {
+          newGroup: {
+            id: expect.any(String),
+            name: "Test Group",
+            users: [],
+          },
+        },
       });
     });
 
@@ -67,6 +84,9 @@ describe("Repository", () => {
       expect(response).toEqual({
         errors: ["Group already exists"],
         messages: [],
+        data: {
+          newGroup: null,
+        },
       });
     });
   });

@@ -19,6 +19,9 @@ export class Repository implements IRepository {
       return {
         errors: ["Group name is required"],
         messages: [],
+        data: {
+          newGroup: null,
+        },
       };
     }
 
@@ -32,6 +35,9 @@ export class Repository implements IRepository {
       return {
         errors: ["Group already exists"],
         messages: [],
+        data: {
+          newGroup: null,
+        },
       };
     }
 
