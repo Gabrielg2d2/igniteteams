@@ -108,7 +108,7 @@ export function Players() {
 
     Alert.prompt(
       "Remover Time",
-      "Digite o nome do grupo para confirmar a remoção",
+      `Digite o nome do grupo "${groupName}" para confirmar a remoção`,
       [
         {
           text: "Cancelar",
