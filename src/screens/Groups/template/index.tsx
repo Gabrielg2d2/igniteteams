@@ -11,7 +11,7 @@ import * as S from "./styles";
 export type GroupsTemplateProps = {
   groups: GroupType[];
   navigateToNewGroups: () => void;
-  navigateToPlayers: (group: string) => void;
+  navigateToPlayers: (groupId: string, groupName: string) => void;
 };
 
 export function GroupsTemplate(props: GroupsTemplateProps) {
@@ -27,7 +27,7 @@ export function GroupsTemplate(props: GroupsTemplateProps) {
         renderItem={({ item }) => (
           <GroupCard
             title={item.name}
-            onPress={() => props.navigateToPlayers(item.id)}
+            onPress={() => props.navigateToPlayers(item.id, item.name)}
           />
         )}
         contentContainerStyle={

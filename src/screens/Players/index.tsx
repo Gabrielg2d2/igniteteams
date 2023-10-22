@@ -8,11 +8,12 @@ import { PlayersTemplate, PlayersTemplateProps } from "./template";
 
 type RouteParams = {
   groupId: string;
+  groupName: string;
 };
 
 export function Players() {
   const routes = useRoute();
-  const { groupId } = routes.params as RouteParams;
+  const { groupId, groupName } = routes.params as RouteParams;
   const [mainGroup] = useState(new MainGroup());
   const { navigateToGroups } = useNavigationCustom();
 
@@ -71,21 +72,49 @@ export function Players() {
   );
 
   const handleRemoveTeam = useCallback(async () => {
-    const { errors, messages } = await mainGroup.removeGroup(groupId);
+    const partOfTheName = groupName.slice(0, -1);
 
-    if (errors.length) {
-      for (const error of errors) {
-        Alert.alert("Erro - Remover Time", error);
-      }
-      return;
-    }
+    Alert.prompt(
+      "Remover Time",
+      "Digite o nome do grupo para confirmar a remoção",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Remover",
+          onPress: async (inputName) => {
+            if (inputName?.toLowerCase() !== groupName?.toLowerCase()) {
+              Alert.alert(
+                "Erro",
+                `O nome "${inputName}" não corresponde ao nome do time.`
+              );
+              return;
+            }
 
-    if (messages.length) {
-      for (const message of messages) {
-        Alert.alert("Remover Time", message);
-        navigateToGroups();
-      }
-    }
+            const { errors, messages } = await mainGroup.removeGroup(groupId);
+
+            if (errors.length) {
+              for (const error of errors) {
+                Alert.alert("Erro - Remover Time", error);
+              }
+              return;
+            }
+
+            if (messages.length) {
+              for (const message of messages) {
+                Alert.alert("Remover Time", message);
+                navigateToGroups();
+              }
+            }
+          },
+        },
+      ],
+      "plain-text",
+      partOfTheName
+    );
   }, [groupId, mainGroup]);
 
   useEffect(() => {
@@ -102,7 +131,7 @@ export function Players() {
     setValuePerson,
     valuePerson,
     players,
-    groupName: groupId,
+    groupName,
   };
 
   return <PlayersTemplate {...propsTemplate} />;
