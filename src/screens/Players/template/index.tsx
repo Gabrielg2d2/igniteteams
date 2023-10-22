@@ -77,13 +77,22 @@ export function PlayersTemplate(props: PlayersTemplateProps) {
 
           <HStack space={2}>
             <FlatList
-              data={["team a", "team b"]}
-              keyExtractor={(item) => item}
+              data={[
+                {
+                  id: "team a",
+                  name: "Time A",
+                },
+                {
+                  id: "team b",
+                  name: "Time B",
+                },
+              ]}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <Filter
-                  title={item}
-                  isActive={item.toLowerCase() === props.team.toLowerCase()}
-                  onPress={() => props.setTeam(item)}
+                  title={item.name}
+                  isActive={item.id.toLowerCase() === props.team.toLowerCase()}
+                  onPress={() => props.setTeam(item.id)}
                 />
               )}
               horizontal
