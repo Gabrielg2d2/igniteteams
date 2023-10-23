@@ -4,8 +4,12 @@
 
 - React-Native
 - Expo
-- React-native-async-storage/async-storage
 - Typescript
+- React-native-async-storage/async-storage
+- Styled-Components
+- Phosphor-react-native
+- React-navigation/native
+- React-navigation/native-stack
 
 ### Command to run the project:
 
