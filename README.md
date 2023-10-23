@@ -10,6 +10,7 @@
 - Phosphor-react-native
 - React-navigation/native
 - React-navigation/native-stack
+- Babel-plugin-module-resolver
 
 ### Command to run the project:
 
